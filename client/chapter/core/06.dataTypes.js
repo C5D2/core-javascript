@@ -76,5 +76,3 @@ sum(); // 호출
 // console.log(a+b);가 아니라 return a+b;로 해야 값을 내보낼 수 있음
 
 // this
-
-=>
