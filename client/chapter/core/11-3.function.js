@@ -109,6 +109,7 @@ const user = {
   address: "서울시 중랑구 면목동",
   grades: [80, 40, 15],
   totalGrades() {
+    // const self = this;
     this.grades.forEach((item) => {
       this.total += item;
     });
@@ -127,7 +128,52 @@ const user = {
 /* 다음 함수를 작성해봅니다. -------------------------------------------------- */
 
 // pow(numeric: number, powerCount: number): number;
-let pow;
+
+let pow = (numeric, powerCount) => {
+  let result = 1;
+  for (let i = 1; i < powerCount; i++) {
+    result *= numeric;
+  }
+  return result;
+};
+
+// let pow = (numeric, powerCount) => {
+//   let result = 1;
+//   for (let i = 0; i < powerCount; i++) result *= numeric;
+//   return result;
+// };
+// console.log(pow(2, 53));
+
+let powExpression = (numeric, powCount) => {
+  return Array(powCount)
+    .fill(null)
+    .reduce((acc) => {
+      return acc * numeric;
+    }, 1);
+};
+
+// let powExpression = (numeric, powCount) =>
+//   Array(powCount)
+//     .fill(null)
+//     .reduce((acc) => acc * numeric, 1);
+
+// let pow = (numeric, powerCount) => numeric ** powerCount;
 
 // repeat(text: string, repeatCount: number): string;
-let repeat;
+// let repeat;
+
+// 반복문
+// let repeat = (text, repeatCount) => {
+//   let result = "";
+//   for (let i = 0; i < repeatCount; i++)
+//     result += text;
+//   return result;
+// };
+
+// 배열의 반복
+let repeatExpression = (text, repeatCount) =>
+  Array(repeatCount)
+    .fill(null)
+    .reduce((acc) => acc + text, "");
+
+repeatExpression("hello🤩", 3); // hello🤩hello🤩hello🤩
