@@ -1,9 +1,43 @@
-body {
+/* body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+} */
+
+h1 {
+  /* width: calc(100px / 2); */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* transform: translate(-50%, -50%) rotate(45deg) skew(10deg); */
+  transform: translate(-50%, -50%);
+  /* rotation: 45deg */
+  /* translate: -50% */
+}
+
+.first {
+  background-color: orange;
+  display: inline-block;
+}
+
+span:nth-child(2) {
 }
 
 h1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  & .first {
+  }
+
+  & .second {
+  }
 }
+
+/* 
+h1 .first{
+
+}
+
+h1 .second{
+
+}
+ */
