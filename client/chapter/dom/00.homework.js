@@ -23,7 +23,6 @@ function handleSubmit(e) {
 }
 
 idField.addEventListener("input", handleCheckId);
-
 submit.addEventListener("click", handleSubmit);
 
 // classList
