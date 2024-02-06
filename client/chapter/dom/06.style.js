@@ -65,3 +65,7 @@ console.log(getComputedStyle(first)["backgroundColor"]);
 
 // const css = (node, prop, value) =>
 //   !value ? getCss(node, prop) : setCss(node, prop, value);
+
+// removeClass(".first", "second");
+
+removeClass(".first");
