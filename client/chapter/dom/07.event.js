@@ -54,12 +54,12 @@ function debounce(callback, limit = 100) {
 
 // call, apply, bind
 
-// ground.addEventListener(
-//   "mousemove",
-//   debounce(function (e) {
-//     console.log(this);
-//   }, 1000)
-// );
+ground.addEventListener(
+  "mousemove",
+  debounce(function (e) {
+    console.log(this);
+  }, 1000)
+);
 
 function handle(e) {
   console.log(this, e);
