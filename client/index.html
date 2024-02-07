@@ -1,14 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko-KR">
   <head>
+    <title>범쌤과 함께하는 자바스크립트 코어</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="./assets/favicon.svg" type="image/x-icon" />
     <link rel="stylesheet" href="./style.css" />
-    <script src="./main.js"></script>
-    <title>범쌤과 함께하는 자바스크립트 코어</title>
+
+    <script src="./main.js" type="module"></script>
   </head>
   <body>
-    <h1>hello javascript!</h1>
+    <form class="calculator">
+      <div class="first">
+        <label for="firstNumber">First Value</label>
+        <input type="number" name="first" id="firstNumber" required />
+      </div>
+
+      <div class="operator">+</div>
+
+      <div class="second">
+        <label for="secondNumber">Second Value</label>
+        <input type="number" name="second" id="secondNumber" required />
+      </div>
+
+      <input id="clear" type="submit" value="clear" />
+
+      <div class="result">-</div>
+    </form>
   </body>
 </html>
