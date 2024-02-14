@@ -69,7 +69,7 @@ function handleCopy() {
 
   if (!nameField.value) return;
 
-  copy.then(() => {
+  copy(text).then(() => {
     showAlert(".alert-success", "클립보드 복사 완료!!");
   });
 }
