@@ -1,13 +1,11 @@
 import {
   shake,
-  addClass,
   clearContents,
   showAlert,
   getNode,
   getRandom,
   insertLast,
   isNumericString,
-  removeClass,
   copy,
 } from "./lib/index.js";
 import jujeobData from "./data/data.js";
