@@ -1,4 +1,12 @@
-import { diceAnimation, getNode, getNodes, insertLast } from "./lib/index.js";
+import {
+  memo,
+  getNode,
+  getNodes,
+  endScroll,
+  insertLast,
+  diceAnimation,
+  clearContents,
+} from "./lib/index.js";
 
 // [phase-1]
 // 1. 주사위 굴리기 버튼을 누르면 diceAnimation() 실행될 수 있도록
@@ -15,6 +23,15 @@ import { diceAnimation, getNode, getNodes, insertLast } from "./lib/index.js";
 //    - 템플릿 랜더링하기
 //    - 값 계산하기
 
+// [phase-3]
+// 1. 생성 함수와 렌더 함수 분리하기 (createItem, renderRecordItem)
+// 2. endScroll 함수 만들기
+// 3. resetButton 이벤트 바인딩
+// 4. recordListWrapper show / hidden 처리
+// 5. tbody 자식 요소 제거 => node.textContent = ""; || clearContents()
+// 6. count, total 값 초기화
+// 7. recordButton, resetButton 비활성화
+
 // 미니 과제 => 만들어주는 함수, 초기화 버튼 클릭시 모든 데이터 날리기
 
 const [rollingButton, recordButton, resetButton] = getNodes(
@@ -26,21 +43,25 @@ const recordListBox = getNode(".recordList tbody");
 let count = 0;
 let total = 0;
 
+function createItem(value) {
+  return `            
+  <tr>
+  <td>${++count}</td>
+  <td>${value}</td>
+  <td>${(total += value)}</td>
+</tr>
+`;
+}
+
 function renderRecordItem() {
   const cube = getNode("#cube");
   //   const diceValue = Number(cube.dataset.dice);
   //   const diceValue = cube.dataset.dice * 1;
   //   const diceValue = cube.dataset.dice / 1;
-  const diceValue = +cube.dataset.dice;
-  const template = `            
-  <tr>
-  <td>${++count}</td>
-  <td>${diceValue}</td>
-  <td>${(total += diceValue)}</td>
-</tr>
-`;
+  const diceValue = +memo("cube").dataset.dice;
 
-  insertLast(recordListBox, template);
+  insertLast(recordListBox, createItem(diceValue));
+  endScroll(recordListWrapper);
 }
 
 // IIFE
@@ -86,10 +107,16 @@ function handleRecord() {
 
 function handleReset() {
   recordListWrapper.hidden = true;
+  // 1. tbody 안에 요소 제거 node.textContent = "";
+  // recordListBox.innerHTML = "";
+  clearContents("tbody");
+
+  // 2. count, total 값 초기화 ?? = 0
   count = 0;
   total = 0;
 
-  recordListBox.innerHTML = "";
+  recordButton.disabled = true;
+  resetButton.disabled = true;
 }
 
 rollingButton.addEventListener("click", handleRollingDice);
