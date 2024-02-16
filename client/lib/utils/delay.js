@@ -1,8 +1,9 @@
 import { getNode } from "../dom/getNode.js";
+import { isNumber, isObject } from "./typeOf.js";
+import { xhrPromise } from "./xhr.js";
 import { insertLast } from "../dom/insert.js";
 import { getRandomMinMax } from "../math/getRandomMinMax.js";
 import { dragon } from "./dragon.js";
-import { isNumber, isObject } from "./typeOf.js";
 
 const first = getNode(".first");
 const second = getNode(".second");
@@ -40,7 +41,7 @@ const defaultOptions = {
 
 //   options : number | object
 
-function delayP(options) {
+export function delayP(options) {
   let config = { ...defaultOptions };
 
   if (isNumber(options)) {
@@ -65,23 +66,28 @@ function delayP(options) {
 }
 
 // delayP(1000)
-//   .then((res) => {
-//     first.style.top = "-100px";
-//     second.style.top = "100px";
+// .then((res)=>{
 
-//     return delayP(1000);
-//   })
-//   .then((res) => {
-//     first.style.transform = "rotate(360deg)";
-//     second.style.transform = "rotate(-360deg)";
-//     return delayP(1000);
-//   })
-//   .then((res) => {
-//     first.style.top = "0";
-//     second.style.top = "0";
-//     return delayP(1000);
-//   })
-//   .catch(() => {});
+//    first.style.top = '-100px'
+//    second.style.top = '100px'
+
+//    return delayP(1000)
+// })
+// .then((res)=>{
+
+//   first.style.transform = 'rotate(360deg)'
+//   second.style.transform = 'rotate(-360deg)'
+//   return delayP(1000)
+// })
+// .then((res)=>{
+
+//   first.style.top = '0'
+//   second.style.top = '0'
+//   return delayP(1000)
+// })
+// .catch(()=>{
+
+// })
 
 // const promise = new Promise((a,b)=>{
 //   b('실패!')
@@ -89,22 +95,19 @@ function delayP(options) {
 
 // console.log( promise );
 
-// function a() {
+// function a(){
+
 //   return new Promise((resolve, reject) => {
-//     resolve({ nickName: "kindtiger", age: 15 });
-//   });
+//     resolve({nickName:'kindtiger',age:15})
+//   })
+
 // }
 
-// a().then((res) => {
-//   console.log(res);
-// }); // Promise<object>
+// a().then((res)=>{
+//   console.log( res );
+// })
 
-// function delayA(data) {
-//   return data;
-// }
-
-// const result = delayA("신재훈");
-// console.log(result);
+// console.log(  );
 
 // async : 함수의 리턴값을 무조건 Promise<Object>
 
@@ -112,11 +115,80 @@ async function delayA(data) {
   return data;
 }
 
-// delayA("신재훈").then(console.log);
+// delayA('신재훈').then(console.log)
+
 const result = await delayA("신재훈");
 
-// const result = delayA("신재훈");
-// console.log(result);
+// IIAFE
+
+// (async ()=>{
+
+// })()
+
+/* -------------------------------------------- */
+/*                   callback                   */
+/* -------------------------------------------- */
+
+// function 라면끓이기() {
+//   delay(() => {
+//     console.log("물");
+//     delay(() => {
+//       console.log("스프");
+//       delay(() => {
+//         console.log("면");
+//         delay(() => {
+//           console.log("그릇");
+//         });
+//       });
+//     });
+//   });
+// }
+
+/* -------------------------------------------- */
+/*                    promise                   */
+/* -------------------------------------------- */
+
+// function 라면끓이기(){
+
+//   delayP()
+//   .then(()=>{
+//     console.log('물');
+//     return delayP()
+//   })
+//   .then(()=>{
+//     console.log('스프');
+//     return delayP()
+//   })
+//   .then(()=>{
+//     console.log('면');
+//     return delayP()
+//   })
+//   .then(()=>{
+//     console.log('그릇');
+//     return delayP()
+//   })
+
+// }
+
+/* -------------------------------------------- */
+/*                     async                    */
+/* -------------------------------------------- */
+
+async function 라면끓이기() {
+  console.log("물");
+  await delayP();
+
+  console.log("스프");
+  await delayP();
+
+  console.log("면");
+  await delayP();
+
+  console.log("그릇");
+  await delayP();
+}
+
+// 라면끓이기();
 
 async function getData() {
   const response = await dragon.get(
@@ -124,6 +196,8 @@ async function getData() {
   );
 
   const imgSrc = response.data.sprites.other.showdown["front_default"];
-  insertLast("h1", `<img src="${imgSrc}" alt=""/>`);
+
+  insertLast("h1", `<img src="${imgSrc}" alt="" />`);
 }
-// getData();
+
+// getData()

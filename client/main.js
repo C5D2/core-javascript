@@ -1,13 +1,20 @@
 /* global gsap */
 
-import { dragon, insertLast } from "./lib/index.js";
+import {
+  delayP,
+  dragon,
+  getNode as $,
+  changeColor,
+  renderSpinner,
+  renderUserCard,
+  renderEmptyCard,
+} from "./lib/index.js";
 
 const END_POINT = "https://jsonplaceholder.typicode.com/users";
 
 // 1. user 데이터를 tiger 함수를 사용해 fetch 해주세요.
 const response = await dragon.get(END_POINT);
-console.log(response.data);
-
+const userCardInner = $(".user-card-inner");
 // 2. 함수 안에 넣기(renderUserList)
 // 3. html, css 붙여넣기
 // 4. 유저 데이터를 화면에 렌더링
@@ -17,36 +24,47 @@ console.log(response.data);
 // - insertLast 함수를 사용하여 화면에 렌더링하기
 
 async function renderUserList() {
-  const response = await dragon.get(END_POINT);
-  //   const array = { ...response.data };
-  console.log(response.data);
-  const userData = response.data;
-  userData.forEach((item) => {
-    return item;
-  });
+  renderSpinner(userCardInner);
+  try {
+    await delayP();
 
-  const template = `<article class="user-card" data-index="user-1">
-    <h3 class="user-name">${userData.name}</h3>
-    <div class="user-resouce-info">
-      <div>
-        <a class="user-email" href="mailto:tiger@euid.dev"
-          >${`email`}</a
-        >
-      </div>
-      <div>
-        <a
-          class="user-website"
-          href="http://tiger.com"
-          target="_blank"
-          rel="noopener noreferer"
-          >${`address`}</a
-        >
-      </div>
-    </div>
-    <button class="delete">삭제</button>
-  </article>`;
+    gsap.to(".loadingSpinner", {
+      opacity: 0,
+      onComplete() {
+        $(".loadingSpinner").remove();
+      },
+    });
 
-  insertLast(".user-card", template);
+    const response = await dragon.get(END_POINT);
+
+    const userData = response.data;
+
+    userData.forEach((user) => renderUserCard(userCardInner, user));
+    changeColor(".user-card");
+    gsap.from(".user-card", {
+      x: 100,
+      opacity: 0,
+      stagger: 0.1,
+    });
+  } catch {
+    renderEmptyCard(userCardInner);
+  }
 }
 
 renderUserList();
+
+function handleDelete(e) {
+  const button = e.target.closest("button");
+  const article = e.target.closest("article");
+
+  if (!button) return;
+  const id = article.dataset.index.slice(5);
+  console.log(id);
+
+  //   tiger.delete() 미니 과제
+  dragon.delete(END_POINT + `/${id}`);
+
+  // article의 dataset.index
+}
+
+userCardInner.addEventListener("click", handleDelete);
