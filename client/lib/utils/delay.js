@@ -1,4 +1,7 @@
 import { getNode } from "../dom/getNode.js";
+import { insertLast } from "../dom/insert.js";
+import { getRandomMinMax } from "../math/getRandomMinMax.js";
+import { dragon } from "./dragon.js";
 import { isNumber, isObject } from "./typeOf.js";
 
 const first = getNode(".first");
@@ -61,24 +64,24 @@ function delayP(options) {
   });
 }
 
-delayP(1000)
-  .then((res) => {
-    first.style.top = "-100px";
-    second.style.top = "100px";
+// delayP(1000)
+//   .then((res) => {
+//     first.style.top = "-100px";
+//     second.style.top = "100px";
 
-    return delayP(1000);
-  })
-  .then((res) => {
-    first.style.transform = "rotate(360deg)";
-    second.style.transform = "rotate(-360deg)";
-    return delayP(1000);
-  })
-  .then((res) => {
-    first.style.top = "0";
-    second.style.top = "0";
-    return delayP(1000);
-  })
-  .catch(() => {});
+//     return delayP(1000);
+//   })
+//   .then((res) => {
+//     first.style.transform = "rotate(360deg)";
+//     second.style.transform = "rotate(-360deg)";
+//     return delayP(1000);
+//   })
+//   .then((res) => {
+//     first.style.top = "0";
+//     second.style.top = "0";
+//     return delayP(1000);
+//   })
+//   .catch(() => {});
 
 // const promise = new Promise((a,b)=>{
 //   b('실패!')
@@ -86,4 +89,41 @@ delayP(1000)
 
 // console.log( promise );
 
-console.log("delay");
+// function a() {
+//   return new Promise((resolve, reject) => {
+//     resolve({ nickName: "kindtiger", age: 15 });
+//   });
+// }
+
+// a().then((res) => {
+//   console.log(res);
+// }); // Promise<object>
+
+// function delayA(data) {
+//   return data;
+// }
+
+// const result = delayA("신재훈");
+// console.log(result);
+
+// async : 함수의 리턴값을 무조건 Promise<Object>
+
+async function delayA(data) {
+  return data;
+}
+
+// delayA("신재훈").then(console.log);
+const result = await delayA("신재훈");
+
+// const result = delayA("신재훈");
+// console.log(result);
+
+async function getData() {
+  const response = await dragon.get(
+    `https://pokeapi.co/api/v2/pokemon/${getRandomMinMax(0, 100)}`
+  );
+
+  const imgSrc = response.data.sprites.other.showdown["front_default"];
+  insertLast("h1", `<img src="${imgSrc}" alt=""/>`);
+}
+// getData();
