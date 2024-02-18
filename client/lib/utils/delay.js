@@ -1,6 +1,5 @@
 import { getNode } from "../dom/getNode.js";
 import { isNumber, isObject } from "./typeOf.js";
-import { xhrPromise } from "./xhr.js";
 import { insertLast } from "../dom/insert.js";
 import { getRandomMinMax } from "../math/getRandomMinMax.js";
 import { dragon } from "./dragon.js";
