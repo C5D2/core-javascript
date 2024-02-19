@@ -11,6 +11,10 @@ import {
   clearContents,
 } from "./lib/index.js";
 
+/* -------------------------------------------- */
+/*                    get 통신                    */
+/* -------------------------------------------- */
+
 const END_POINT = "http://localhost:3000/users";
 
 // [phase-1]
@@ -54,6 +58,10 @@ async function renderUserList() {
 }
 
 renderUserList();
+
+/* -------------------------------------------- */
+/*                   delete 통신                  */
+/* -------------------------------------------- */
 
 // [phase-2]
 // delete 통신 이후
