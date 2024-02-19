@@ -1,4 +1,10 @@
-import { setStorage, getStorage, deleteStorage, getNode, clearContents } from "./lib/index.js";
+import {
+  setStorage,
+  getStorage,
+  deleteStorage,
+  getNode,
+  clearContents,
+} from "./lib/index.js";
 
 // 1. textField의 값을 로컬스토리지에 저장해주세요.
 // - Input.addEvent...
@@ -14,15 +20,14 @@ const handleTextField = (e) => {
   setStorage("text", value);
 };
 
-const handleClear = () => 
-    deleteStorage("text").then(clearContents(textField))
-
+const handleClear = () => deleteStorage("text").then(clearContents(textField));
 
 textField.addEventListener("input", handleTextField);
 
 clear.addEventListener(
   "click",
-  handleClear)
+  handleClear
+)(
   // function init() {
   //   console.log("init");
   // }
